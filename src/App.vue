@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <notifications group="foo"/>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -7,7 +8,6 @@
     <router-view/>
   </div>
 </template>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
