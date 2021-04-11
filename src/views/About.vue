@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-    <button @click="showToast">Show Toast</button>
+    <button @click="showToast" class="btn btn-info">Show Toast</button>
   </div>
 </template>
 <script>
