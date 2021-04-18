@@ -1,13 +1,81 @@
 <template>
   <div id="app">
     <notifications group="foo"/>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">ANEO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav" v-if="!userLoged">
+            <li class="nav-item">
+              <router-link to="/" class="nav-link" aria-current="page">Inicio</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/login" class="nav-link" aria-current="page">Login</router-link>
+            </li>
+          </ul>
+          <ul class="navbar-nav" v-else>
+            <li class="nav-item">
+              <router-link to="/" class="nav-link" aria-current="page">Inicio</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/panel" class="nav-link" aria-current="page">Panel</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/close" class="nav-link" aria-current="page">Cerrar</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <router-view/>
   </div>
 </template>
+
+<script>
+import axios from "axios"
+
+export default {
+  name:"App",
+  mounted(){
+    this.authUser()
+  },
+  data(){
+    return{
+      "userLoged":false,
+      "user":""
+    }
+  },
+  methods:{
+    authUser(){
+      try{
+        let token = localStorage.getItem("token")
+        token = JSON.parse(token)
+        var config = {
+          "headers": {
+          "Authorization":"JWT "+token.token,
+          }
+        }
+        axios.get('http://127.0.0.1:8000/login',config).then(response => {
+        this.user = response.data}).catch(e => {console.log(e)})
+        this.userLoged = true
+      }
+      catch(e){
+        console.log(e)
+      }
+    },
+    closeSesion:function(){
+      localStorage.removeItem("token")
+      this.userLoged = false
+      this.$router.push("/")                        
+      location.reload();
+    },
+  },
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -27,6 +95,6 @@
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #1949e6;
 }
 </style>
