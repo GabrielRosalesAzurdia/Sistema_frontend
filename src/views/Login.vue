@@ -60,8 +60,8 @@ export default {
     },
     sendData(){
       event.preventDefault()
-      axios.post('http://127.0.0.1:8000/login',{
-        email : this.email,
+      axios.post('http://127.0.0.1:8000/login/',{
+        username : this.email,
         password : this.password,
       }).then(response => {
         let token = response.data

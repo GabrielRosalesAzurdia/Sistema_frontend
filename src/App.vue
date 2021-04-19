@@ -8,7 +8,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav" v-if="!userLoged">
+          <ul class="navbar-nav" v-if="!userLoged">    
             <li class="nav-item">
               <router-link to="/" class="nav-link" aria-current="page">Inicio</router-link>
             </li>
@@ -24,7 +24,7 @@
               <router-link to="/panel" class="nav-link" aria-current="page">Panel</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/close" class="nav-link" aria-current="page">Cerrar</router-link>
+              <span class="nav-link" aria-current="page" @click="closeSesion()" style="font-weight: bold;color: #2c3e50;">Cerrar</span>
             </li>
           </ul>
         </div>
@@ -53,18 +53,20 @@ export default {
       try{
         let token = localStorage.getItem("token")
         token = JSON.parse(token)
+        console.log(token.token)
         var config = {
           "headers": {
-          "Authorization":"JWT "+token.token,
+          "Authorization":"Token "+token.token,
           }
         }
-        axios.get('http://127.0.0.1:8000/login',config).then(response => {
-        this.user = response.data}).catch(e => {console.log(e)})
-        this.userLoged = true
+        axios.get('http://127.0.0.1:8000/accounts/user',config).then(response => {
+          this.user = response.data
+          this.userLoged = true
+        }).catch(e => { console.log(e) })
       }
       catch(e){
         console.log(e)
-      }
+      } 
     },
     closeSesion:function(){
       localStorage.removeItem("token")
