@@ -3,28 +3,30 @@
     <notifications group="foo"/>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">ANEO</a>
+        <span class="navbar-brand" href="#">ANEO</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav" v-if="!userLoged">    
             <li class="nav-item">
-              <router-link to="/" class="nav-link" aria-current="page">Inicio</router-link>
+              <router-link to="/" class="nav-link btn btn-light" aria-current="page">Inicio</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/login" class="nav-link" aria-current="page">Login</router-link>
+              <router-link to="/login" class="nav-link btn btn-light" aria-current="page">Login</router-link>
             </li>
           </ul>
           <ul class="navbar-nav" v-else>
             <li class="nav-item">
-              <router-link to="/" class="nav-link" aria-current="page">Inicio</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/panel" class="nav-link" aria-current="page">Panel</router-link>
+              <router-link to="/" class="nav-link btn btn-light" aria-current="page">Inicio</router-link>
             </li>
             <li class="nav-item">
-              <span class="nav-link" aria-current="page" @click="closeSesion()" style="font-weight: bold;color: #2c3e50;">Cerrar</span>
+              <router-link to="/panel" class="nav-link btn btn-light" aria-current="page">Panel</router-link>
+            </li>
+            <li class="nav-item">
+              <span id="spanCerrar" class="nav-link btn btn-light" aria-current="page" @click="closeSesion()">Cerrar</span>
             </li>
           </ul>
         </div>
@@ -35,7 +37,6 @@
 </template>
 
 <script>
-import axios from "axios"
 
 export default {
   name:"App",
@@ -45,28 +46,30 @@ export default {
   data(){
     return{
       "userLoged":false,
-      "user":""
     }
   },
   methods:{
     authUser(){
-      try{
-        let token = localStorage.getItem("token")
-        token = JSON.parse(token)
-        console.log(token.token)
-        var config = {
-          "headers": {
-          "Authorization":"Token "+token.token,
-          }
-        }
-        axios.get('http://127.0.0.1:8000/accounts/user',config).then(response => {
-          this.user = response.data
-          this.userLoged = true
-        }).catch(e => { console.log(e) })
+      if(localStorage.getItem("token")){
+        this.userLoged = true
       }
-      catch(e){
-        console.log(e)
-      } 
+      // try{
+      //   let token = localStorage.getItem("token")
+      //   token = JSON.parse(token)
+      //   console.log(token.token)
+      //   var config = {
+      //     "headers": {
+      //     "Authorization":"Token "+token.token,
+      //     }
+      //   }
+      //   axios.get('http://127.0.0.1:8000/accounts/user',config).then(response => {
+      //     this.user = response.data
+      //     this.userLoged = true
+      //   }).catch(e => { console.log(e) })
+      // }
+      // catch(e){
+      //   console.log(e)
+      // } 
     },
     closeSesion:function(){
       localStorage.removeItem("token")
@@ -98,5 +101,11 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #1949e6;
+}
+</style>
+<style scoped>
+  #spanCerrar{
+    font-weight: bold;color:
+  #2c3e50;
 }
 </style>

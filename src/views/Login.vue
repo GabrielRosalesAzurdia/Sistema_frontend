@@ -60,13 +60,14 @@ export default {
     },
     sendData(){
       event.preventDefault()
-      axios.post('http://127.0.0.1:8000/login/',{
+      axios.post('http://127.0.0.1:8000/accounts/api-token-auth/',{
         username : this.email,
         password : this.password,
       }).then(response => {
-        let token = response.data
-        let tokenJson = JSON.stringify(token)
-        localStorage.setItem("token",tokenJson)
+        let username = response.data["user_name"]
+        let token = response.data["token"]
+        localStorage.setItem("token",JSON.stringify(token))
+        localStorage.setItem("userName",JSON.stringify(username))
         this.$router.push("/")                        
         location.reload();
       }).catch(e => {
@@ -76,8 +77,6 @@ export default {
     }
   }
 };
-
-
 </script>
 
 <style scoped>
