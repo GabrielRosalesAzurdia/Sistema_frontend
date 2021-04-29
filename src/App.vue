@@ -51,25 +51,24 @@ export default {
   methods:{
     authUser(){
       if(localStorage.getItem("token")){
+        //  try{
+        //    let token = localStorage.getItem("token")
+        //    token = JSON.parse(token)
+        //    var config = {
+        //      "headers": {
+        //      "Authorization":"Token "+token.token,
+        //      }
+        //    }
+        //    axios.get('http://127.0.0.1:8000/accounts/api-token-auth/',config).then(response => {
+        //      this.user = response.data
+        //      this.userLoged = true
+        //    }).catch(e => { console.log(e) })
+        //   }
+        //   catch(e){
+        //     console.log(e)
+        //   } 
         this.userLoged = true
       }
-      // try{
-      //   let token = localStorage.getItem("token")
-      //   token = JSON.parse(token)
-      //   console.log(token.token)
-      //   var config = {
-      //     "headers": {
-      //     "Authorization":"Token "+token.token,
-      //     }
-      //   }
-      //   axios.get('http://127.0.0.1:8000/accounts/user',config).then(response => {
-      //     this.user = response.data
-      //     this.userLoged = true
-      //   }).catch(e => { console.log(e) })
-      // }
-      // catch(e){
-      //   console.log(e)
-      // } 
     },
     closeSesion:function(){
       localStorage.removeItem("token")
