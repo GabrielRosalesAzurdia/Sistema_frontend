@@ -50,6 +50,7 @@ export default {
     }
   },
   methods: {
+    // Muestra una notificación
     showToast(type, message) {
       this.$notify({
         group: "foo",
@@ -58,6 +59,7 @@ export default {
         text: message
       });
     },
+    // Identifica al usuario
     sendData(){
       event.preventDefault()
       axios.post('http://127.0.0.1:8000/accounts/token/',{

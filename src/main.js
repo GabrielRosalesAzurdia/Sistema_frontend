@@ -12,10 +12,11 @@ Vue.use(Notifications)
 
 Vue.config.productionTip = false
 
-// funciones globales
+// -----funciones globales-----
 // parseJwt: para saber la información de los tokens de acceso
 // getAccessToken: obtener token de acceso
 // refreshToken: para refrescar el token de acceso
+// checkUser: envía un bool si hay un usuario presente
 Vue.mixin({
   methods: {
     parseJwt: function (token) {
@@ -47,6 +48,12 @@ Vue.mixin({
         })
       }
     },
+    checkUser: function(){
+      if(localStorage.getItem("tokenAccess") != null & localStorage.getItem("tokenRefresh") != null ){
+        return true
+      }
+      return false
+    }
   }
 });
 

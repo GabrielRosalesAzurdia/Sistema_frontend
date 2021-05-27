@@ -41,7 +41,7 @@
 export default {
   name:"App",
   mounted(){
-    this.authUser()
+    this.chekingUser()
   },
   data(){
     return{
@@ -49,11 +49,11 @@ export default {
     }
   },
   methods:{
-    authUser(){
-      if(localStorage.getItem("tokenAccess") & localStorage.getItem("tokenRefresh")){
-        this.userLoged = true
-      }
+    // Verifica si hay un usuario logiado con token access y token refresh
+    chekingUser(){
+        this.userLoged = this.checkUser()
     },
+    // Cierra la sesión
     closeSesion:function(){
       localStorage.removeItem("tokenAcess")
       localStorage.removeItem("tokenRefresh")

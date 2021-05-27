@@ -12,10 +12,10 @@
         Bienvenido al ANEO (Adminstrador de Notas de Estudiantes Online)
       </p>
       <p>
-        por favor inica sesión
+        {{texto_prueba}}
       </p>
     </div>
-      {{texto_prueba}}
+
   </div>
 </template>
 
@@ -30,23 +30,22 @@
 //   }
 // }
 
-import axios from "axios"
-
 export default {
   name: "Home",
+  mounted(){
+    this.chekingUser()
+  },
   data(){
     return{
-      texto_prueba:""
+      texto_prueba:"por favor inicia sesión"
     }
   },
   methods:{
-    // prueba(){
-    //   this.refreshToken()
-    //   let config = this.getAccessToken()
-    //   axios.get("http://127.0.0.1:8000/panel/prueba/",config).then(response => {
-    //     this.texto_prueba = response
-    //   })
-    // }
+    chekingUser(){
+      if(this.checkUser()){
+        this.texto_prueba = "Gracias por iniciar sesión!"
+      }
+    }
   }
 }
 </script>

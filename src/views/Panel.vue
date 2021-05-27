@@ -19,19 +19,13 @@ export default {
     },
     methods:{
         getUser(){
-            let token = localStorage.getItem("token")
-            token = JSON.parse(token)
-            console.log(token.token)
-            var config = {
-                "headers": {
-                "Authorization":"Token "+token.token,
-                }
-            }
+            this.refreshToken()
+            let config = this.getAccessToken() 
             axios.get('http://127.0.0.1:8000/accounts/user',config).then(response => {
             this.usuario = response.data
             }).catch(e => { 
                 console.log(e) 
-                this.usuario = "chamadre"
+                this.usuario = "falló"
             })
         }
     }
