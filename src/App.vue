@@ -50,28 +50,14 @@ export default {
   },
   methods:{
     authUser(){
-      if(localStorage.getItem("token")){
-        //  try{
-        //    let token = localStorage.getItem("token")
-        //    token = JSON.parse(token)
-        //    var config = {
-        //      "headers": {
-        //      "Authorization":"Token "+token.token,
-        //      }
-        //    }
-        //    axios.get('http://127.0.0.1:8000/accounts/api-token-auth/',config).then(response => {
-        //      this.user = response.data
-        //      this.userLoged = true
-        //    }).catch(e => { console.log(e) })
-        //   }
-        //   catch(e){
-        //     console.log(e)
-        //   } 
+      if(localStorage.getItem("tokenAccess") & localStorage.getItem("tokenRefresh")){
         this.userLoged = true
       }
     },
     closeSesion:function(){
-      localStorage.removeItem("token")
+      localStorage.removeItem("tokenAcess")
+      localStorage.removeItem("tokenRefresh")
+      localStorage.removeItem("username")
       this.userLoged = false
       this.$router.push("/")                        
       location.reload();

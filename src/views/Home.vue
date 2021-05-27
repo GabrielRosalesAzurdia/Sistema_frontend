@@ -15,7 +15,7 @@
         por favor inica sesión
       </p>
     </div>
-
+      {{texto_prueba}}
   </div>
 </template>
 
@@ -29,4 +29,24 @@
 //     HelloWorld
 //   }
 // }
+
+import axios from "axios"
+
+export default {
+  name: "Home",
+  data(){
+    return{
+      texto_prueba:""
+    }
+  },
+  methods:{
+    // prueba(){
+    //   this.refreshToken()
+    //   let config = this.getAccessToken()
+    //   axios.get("http://127.0.0.1:8000/panel/prueba/",config).then(response => {
+    //     this.texto_prueba = response
+    //   })
+    // }
+  }
+}
 </script>
