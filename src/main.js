@@ -42,7 +42,12 @@ Vue.mixin({
             }
           }
         })
-        return config
+        if(config){
+          return config
+        }
+        else{
+          throw "Config es undefined"
+        }
       }
     },
     checkUser: function(){
