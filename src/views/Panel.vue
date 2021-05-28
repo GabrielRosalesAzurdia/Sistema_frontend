@@ -19,14 +19,19 @@ export default {
     },
     methods:{
         getUser(){
-            this.refreshToken()
-            let config = this.getAccessToken() 
-            axios.get('http://127.0.0.1:8000/accounts/user',config).then(response => {
-            this.usuario = response.data
-            }).catch(e => { 
-                console.log(e) 
-                this.usuario = "falló"
-            })
+            
+            console.log(localStorage.getItem("tokenAccess"))
+            this.refreshTokenAndGetAccess().then( (config) => {
+                console.log("entro en la promesa de refresh")
+                console.log(config)
+                axios.get('http://127.0.0.1:8000/accounts/user/',config).then(response => {
+                this.usuario = response.data
+                }).catch(e => { 
+                    console.log("aquí va el error")
+                    console.log(e) 
+                    this.usuario = "falló"
+                })
+            } )
         }
     }
 }

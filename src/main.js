@@ -28,24 +28,21 @@ Vue.mixin({
 
       return JSON.parse(jsonPayload);
     },
-    getAccessToken: function(){
-      if(localStorage.getItem("tokenAccess")){
-        var config = {
-            "headers": {
-            "Authorization":"Bearer " + JSON.parse(localStorage.getItem("tokenAccess")) ,
-            }
-        }
-        return config
-      }
-    },
-    refreshToken: function(){
+    refreshTokenAndGetAccess: async function(){
       if (localStorage.getItem("tokenRefresh")){
-        axios.post('http://127.0.0.1:8000/accounts/token/refresh/',{
+        var config;
+        await axios.post('http://127.0.0.1:8000/accounts/token/refresh/',{
           refresh : JSON.parse(localStorage.getItem("tokenRefresh"))
         }).then(response => {
           localStorage.setItem("tokenAccess",JSON.stringify(response.data["access"]))
           localStorage.setItem("tokenRefresh", JSON.stringify(response.data["refresh"]))
+          config = {
+            "headers": {
+              "Authorization":"Bearer " + response.data["access"],
+            }
+          }
         })
+        return config
       }
     },
     checkUser: function(){

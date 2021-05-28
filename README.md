@@ -23,4 +23,4 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-ahora mismo ya funcionan los tokens
+Logica con los tokens fallando
