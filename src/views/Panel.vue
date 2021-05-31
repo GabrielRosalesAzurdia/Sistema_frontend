@@ -2,12 +2,40 @@
     <div class="container">
         <br>
         
-        <div class="row gx-5">
+        <div class="row gx-5 fade-in-div">
             <div class="col">
-                <div class="p-3 border bg-light">Panel de notas</div>
+                <div class="p-3">
+                    <h2>
+                        Panel de Notas
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row gx-5 fade-in-div">
+            <div class="col">
+                <div class="p-3">
+
+                    <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Grados</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr v-for="grado in grados" v-bind:key="grado">
+                        <td v-on:click="selectedGrade(grado.id)">{{grado.name}}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+
+                </div>
             </div>
             <div class="col">
-                <div class="p-3 border bg-light">Bienvenido {{usuario}}</div>
+                <div class="p-3">
+                    <classes :name="clases" key="asd"></classes>
+                </div>
             </div>
         </div>
 
@@ -15,38 +43,85 @@
 </template>
 
 <script>
-//import axios from "axios"
+import Classes from '@/components/Classes.vue'
+import axios from "axios"
 
 export default {
     name:"Panel",
+    components:{
+        Classes
+    },
     data(){
         return{
-            "usuario":""
+            "grados":"",
+            "clases":"",
         }
     },
     mounted(){
-        this.getUsername()
+        this.getGrades()
     },
     methods:{
-        getUsername(){
-            this.usuario = JSON.parse(localStorage.getItem("userName"))
+        getGrades(){
+            this.refreshTokenAndGetAccess().then( (config) => {
+                axios.get('http://127.0.0.1:8000/panel/grades/',config).then(response => {
+                 this.grados = response.data
+                }).catch(e => { 
+                    console.log("error en getGrades")
+                    console.log(e) 
+                    this.usuario = "falló"
+                })
+            })
+        },
+        selectedGrade(gradeid){
+            this.refreshTokenAndGetAccess().then( (config) => {
+                axios.post('http://127.0.0.1:8000/panel/classes/',{
+                    "grade": [gradeid] 
+                },config).then(response => {
+                    console.log(response)
+                    this.clases=response
+                    //no mames ya funciono ahora tengo que completar el componente y hacer la magia con un fade in
+                }).catch(e => { 
+                    console.log("error en selectedGrade")
+                    console.log(e) 
+                    this.usuario = "falló" 
+                })
+            })
         }
     }
 }
 
-            // Guia de como hacer peticiones con la función token:
-            // console.log(localStorage.getItem("tokenAccess"))
-            // this.refreshTokenAndGetAccess().then( (config) => {
-            //     console.log("entro en la promesa de refresh")
-            //     console.log(config)
-            //     axios.get('http://127.0.0.1:8000/accounts/user/',config).then(response => {
-            //     this.usuario = response.data
-            //     }).catch(e => { 
-            //         console.log("aquí va el error")
-            //         console.log(e) 
-            //         this.usuario = "falló"
-            //     })
-            // } )
-
 </script>
 
+<style scoped>
+.fade-in-div {
+  animation: fadeIn 5s;
+  -webkit-animation: fadeIn 5s;
+  -moz-animation: fadeIn 5s;
+  -o-animation: fadeIn 5s;
+  -ms-animation: fadeIn 5s;
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+</style>
