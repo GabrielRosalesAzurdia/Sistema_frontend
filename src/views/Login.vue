@@ -50,15 +50,6 @@ export default {
     }
   },
   methods: {
-    // Muestra una notificación
-    showToast(type, message) {
-      this.$notify({
-        group: "foo",
-        type: type, // puede ser warn o error o succes
-        title: "Important message",
-        text: message
-      });
-    },
     // Identifica al usuario
     sendData(){
       event.preventDefault()
@@ -68,7 +59,8 @@ export default {
       }).then(response => {
         localStorage.setItem("tokenAccess",JSON.stringify(response.data["access"]))
         localStorage.setItem("tokenRefresh", JSON.stringify(response.data["refresh"]))
-        localStorage.setItem("userName",JSON.stringify(response.data["username"]))
+        let username = this.parseJwt(response.data["access"])
+        localStorage.setItem("userName",JSON.stringify(username["first_name"]))
         this.$router.push("/")                        
         location.reload();
       }).catch(e => {

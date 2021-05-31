@@ -17,8 +17,17 @@ Vue.config.productionTip = false
 // getAccessToken: obtener token de acceso
 // refreshToken: para refrescar el token de acceso
 // checkUser: envía un bool si hay un usuario presente
+// shoeToast: Muestra una notificación
 Vue.mixin({
   methods: {
+    showToast(type, message) {
+      this.$notify({
+        group: "foo",
+        type: type, // puede ser warn o error o succes
+        title: "Important message",
+        text: message
+      });
+    },
     parseJwt: function (token) {
       var base64Url = token.split('.')[1];
       var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

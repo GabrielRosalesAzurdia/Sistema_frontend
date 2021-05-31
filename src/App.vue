@@ -55,9 +55,9 @@ export default {
     },
     // Cierra la sesión
     closeSesion:function(){
-      localStorage.removeItem("tokenAcess")
+      localStorage.removeItem("tokenAccess")
       localStorage.removeItem("tokenRefresh")
-      localStorage.removeItem("username")
+      localStorage.removeItem("userName")
       this.userLoged = false
       this.$router.push("/")                        
       location.reload();
