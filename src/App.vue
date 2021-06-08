@@ -50,8 +50,16 @@ export default {
   },
   methods:{
     // Verifica si hay un usuario logiado con token access y token refresh
-    chekingUser(){
-        this.userLoged = this.checkUser()
+    chekingUser: async function (){
+        try{
+          let x = await this.refreshTokenAndGetAccess()
+          console.log(x)
+          this.userLoged = this.checkUser()
+        }
+        catch(e){
+          console.log(e)
+          this.closeSesion()
+        }
     },
     // Cierra la sesión
     closeSesion:function(){

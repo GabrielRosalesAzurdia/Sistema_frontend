@@ -50,6 +50,9 @@ Vue.mixin({
               "Authorization":"Bearer " + response.data["access"],
             }
           }
+        }).catch(r=>{
+          console.log(r)
+          throw "token no valido"
         })
         if(config){
           return config
