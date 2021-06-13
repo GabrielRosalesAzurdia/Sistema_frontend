@@ -19,7 +19,12 @@ const routes = [
     path: '/panel',
     name: 'Panel',
     component: () => import('../views/Panel.vue'),
-  }
+  },
+  {
+    path:'/unit/:unidad_id/:unidad_name/:grado_id',
+    name:"unit",
+    component: () => import('../views/Unit'),
+  },
 ]
 
 const router = new VueRouter({

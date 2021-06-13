@@ -1,37 +1,39 @@
 <template>
   <div id="app">
     <notifications group="foo"/>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
-      <div class="container-fluid">
-        <span class="navbar-brand" href="#">ANEO</span>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav" v-if="!userLoged">    
-            <li class="nav-item">
-              <router-link to="/" class="nav-link btn btn-light" aria-current="page">Inicio</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/login" class="nav-link btn btn-light" aria-current="page">Login</router-link>
-            </li>
-          </ul>
-          <ul class="navbar-nav" v-else>
-            <li class="nav-item">
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link btn btn-light" aria-current="page">Inicio</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/panel" class="nav-link btn btn-light" aria-current="page">Panel</router-link>
-            </li>
-            <li class="nav-item">
-              <span id="spanCerrar" class="nav-link btn btn-light" aria-current="page" @click="closeSesion()">Cerrar</span>
-            </li>
-          </ul>
-        </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">ANEO</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" v-if="!userLoged">
+          <li class="nav-item">
+            <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
+            <router-link to="/" class="nav-link btn btn-light" aria-current="page">Inicio</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link btn btn-light" aria-current="page">Login</router-link>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav mr-auto" v-else>
+          <li class="nav-item">
+            <router-link to="/" class="nav-link btn btn-light" aria-current="page">Inicio</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/panel" class="nav-link btn btn-light" aria-current="page">Panel</router-link>
+          </li>
+          <li class="nav-item">
+            <span id="spanCerrar" class="nav-link btn btn-light" aria-current="page" @click="closeSesion()">Cerrar</span>
+          </li>
+        </ul>
+
       </div>
     </nav>
+
     <router-view/>
   </div>
 </template>
@@ -101,4 +103,5 @@ export default {
     font-weight: bold;color:
   #2c3e50;
 }
+@import'~bootstrap/dist/css/bootstrap.css'
 </style>

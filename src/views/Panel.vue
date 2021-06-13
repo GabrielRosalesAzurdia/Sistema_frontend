@@ -2,7 +2,7 @@
     <div class="container">
         <br>
         
-        <div class="row gx-5 fade-in-div">
+        <div class="row gx-5">
             <div class="col">
                 <div class="p-3">
                     <h2>
@@ -24,8 +24,8 @@
                     </thead>
 
                     <tbody>
-                        <tr v-for="grado in grados" v-bind:key="grado">
-                        <td v-on:click="selectedGrade(grado.id)">{{grado.name}}</td>
+                        <tr v-for="grado in grados" v-bind:key="grado.name">
+                        <td v-on:click="selectedGrade(grado.id)" class="clicker">{{grado.name}}</td>
                         </tr>
                     </tbody>
                     </table>
@@ -34,7 +34,21 @@
             </div>
             <div class="col">
                 <div class="p-3">
-                    <classes :name="clases" key="asd"></classes>
+
+                    <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Clases</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr v-for="clase in clases" v-bind:key="clase.name" class="fade-in-div">
+                            <classes :name="clase" key="asd" style="padding:20px"></classes>
+                        </tr>
+                    </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
@@ -77,9 +91,7 @@ export default {
                 axios.post('http://127.0.0.1:8000/panel/classes/',{
                     "grade": [gradeid] 
                 },config).then(response => {
-                    console.log(response)
-                    this.clases=response
-                    //no mames ya funciono ahora tengo que completar el componente y hacer la magia con un fade in
+                    this.clases=response.data
                 }).catch(e => { 
                     console.log("error en selectedGrade")
                     console.log(e) 
@@ -93,12 +105,25 @@ export default {
 </script>
 
 <style scoped>
+.clicker { 
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+    background: white; 
+    padding: 20px;
+}
+
+.clicker:hover { 
+    background: #eee;
+}
+
 .fade-in-div {
-  animation: fadeIn 5s;
-  -webkit-animation: fadeIn 5s;
-  -moz-animation: fadeIn 5s;
-  -o-animation: fadeIn 5s;
-  -ms-animation: fadeIn 5s;
+  animation: fadeIn 2s;
+  -webkit-animation: fadeIn 2s;
+  -moz-animation: fadeIn 2s;
+  -o-animation: fadeIn 2s;
+  -ms-animation: fadeIn 2s;
 }
 @keyframes fadeIn {
   0% {opacity:0;}
