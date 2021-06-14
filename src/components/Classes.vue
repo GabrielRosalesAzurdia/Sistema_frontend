@@ -44,7 +44,7 @@ export default {
                 },config).then(response => {
                     this.unidades=response.data
                 }).catch(e => { 
-                    console.log("error en selectedGrade")
+                    console.log("error en loadUnits")
                     console.log(e) 
                     this.usuario = "falló" 
                 })
